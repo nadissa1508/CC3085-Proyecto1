@@ -20,6 +20,12 @@ Implementa un motor de búsqueda que:
 ├── create_test_maze.py          # Script para crear laberintos de prueba
 ├── requirements.txt             # Dependencias del proyecto
 │
+├── img/                         # Carpeta con imágenes de prueba
+│   ├── Prueba Lab1.bmp
+│   ├── Test.bmp
+│   ├── Test2.bmp
+│   └── turing.bmp
+│
 ├── enviroment/                  # Módulo de procesamiento de imágenes
 │   ├── __init__.py
 │   ├── image_loader.py         # Carga de imágenes PNG/BMP
@@ -63,20 +69,25 @@ Las dependencias incluyen:
 
 ## Uso del Programa
 
-### Opción 1: Crear Maze de Prueba
+### Imágenes de Prueba Disponibles
 
-Primero, crea imágenes de laberintos para probar:
+El proyecto incluye imágenes de prueba en la carpeta `img/`:
+- `img/turing.bmp`: Laberinto pequeño (~64x64 tiles)
+- `img/Test.bmp`: Laberinto mediano con obstáculos
+- `img/Test2.bmp`: Laberinto mediano alternativo
+- `img/Prueba Lab1.bmp`: Laberinto complejo y grande
+
+### Crear Tus Propios Laberintos (Opcional)
+
+Puedes generar laberintos adicionales con:
 
 ```bash
 python create_test_maze.py
 ```
 
-Esto generará tres laberintos de prueba:
-- `maze_simple.png`: Laberinto simple para pruebas básicas
-- `maze_complex.png`: Laberinto más complejo con múltiples obstáculos
-- `maze_multi_path.png`: Laberinto con múltiples caminos posibles
+Esto creará laberintos de prueba personalizados en el directorio actual.
 
-### Opción 2: Ejecutar el Programa Principal
+### Ejecutar el Programa Principal
 
 ```bash
 python main.py <ruta_imagen> [tamaño_tile] [algoritmo]
@@ -94,14 +105,17 @@ python main.py <ruta_imagen> [tamaño_tile] [algoritmo]
 **Ejemplos:**
 
 ```bash
-# Usar A* con tiles de 10x10
-python main.py maze_simple.png
+# Usar A* con tiles de 10x10 en laberinto pequeño
+python main.py img\turing.bmp
 
-# Usar BFS con tiles de 20x20
-python main.py maze_simple.png 20 bfs
+# Usar BFS en laberinto mediano
+python main.py img\Test.bmp 10 bfs
 
-# Comparar todos los algoritmos
-python main.py maze_complex.png 15 all
+# Comparar todos los algoritmos en laberinto complejo
+python main.py "img\Prueba Lab1.bmp" 10 all
+
+# Usar DFS en otro laberinto
+python main.py img\Test2.bmp 10 dfs
 ```
 
 ### Formato de la Imagen de Entrada
@@ -114,10 +128,11 @@ Las imágenes deben seguir esta convención de colores:
 - Verde, (0, 255, 0), Punto meta 
 
 **Notas importantes:**
-- La imagen debe ser cuadrada
 - Puede haber múltiples puntos meta (verde)
 - Solo puede haber un punto de inicio (rojo)
 - Las paredes deben ser negro absoluto [0, 0, 0]
+- Se aceptan archivos PNG y BMP
+- Si el nombre tiene espacios, usa comillas: `"img\archivo con espacios.bmp"`
 
 ## Implementación Técnica
 
